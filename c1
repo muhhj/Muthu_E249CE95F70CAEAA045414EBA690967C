@@ -1,0 +1,43 @@
+Public Class Form1
+    Dim operand1 As Double
+    Dim operation As String
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        TextBox1.Text &= "1"
+    End Sub
+
+    ' You can add similar Click event handlers for buttons 0 to 9.
+
+    Private Sub BtnOperator_Click(sender As Object, e As EventArgs) Handles BtnPlus.Click, BtnMinus.Click, BtnMultiply.Click, BtnDivide.Click
+        Dim btnOperator As Button = DirectCast(sender, Button)
+        operation = btnOperator.Text
+        Double.TryParse(TextBox1.Text, operand1)
+        TextBox1.Clear()
+    End Sub
+
+    Private Sub BtnEquals_Click(sender As Object, e As EventArgs) Handles BtnEquals.Click
+        Dim operand2 As Double
+        Double.TryParse(TextBox1.Text, operand2)
+
+        Select Case operation
+            Case "+"
+                TextBox1.Text = (operand1 + operand2).ToString()
+            Case "-"
+                TextBox1.Text = (operand1 - operand2).ToString()
+            Case "*"
+                TextBox1.Text = (operand1 * operand2).ToString()
+            Case "/"
+                If operand2 <> 0 Then
+                    TextBox1.Text = (operand1 / operand2).ToString()
+                Else
+                    TextBox1.Text = "Error"
+                End If
+        End Select
+    End Sub
+
+    Private Sub BtnClear_Click(sender As Object, e As EventArgs) Handles BtnClear.Click
+        TextBox1.Clear()
+        operand1 = 0
+        operation = ""
+    End Sub
+End Class
